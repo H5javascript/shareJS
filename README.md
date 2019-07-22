@@ -16,7 +16,7 @@
 
 - 妙用隐式转换：
 
->数字字符串转number:
+> 字字符串转number:
 ```sh
   +'123'
 ```
@@ -26,7 +26,7 @@
   +new Date()
 ```
 
-> 数组/多维数组转逗号分隔字符串：
+> 数组/多维数组转为逗号分隔字符串(可用于多维数组转一维)：
 ```sh
   ""+[1, 2 , 3, 3, [2, 3, 4]]
 ```
@@ -38,15 +38,15 @@
   var a=1;
   var b=2;
   [a, b] = [b, a];
-  console.log('a ===', a);
-  console.log('b ===', b);
+  console.log(a, b);
 ```
 
 - 扩展运算符：
 
-> 取数组最大值：
+> 取数组最大值/最小值：
 ```sh
   Math.max(...[1,2,3])
+  Math.min(...[1,2,3])
 ```
 
 > 生成时间：
@@ -56,18 +56,21 @@
 
 > 字符串转数组：
 ```sh
+  method 1: 
   [...'string']
-    另： Array.from('string')
+  
+  method 2: 
+  Array.from('string')
 ```
 
 > 合并对象：
 ```sh
-let obj1 = {a:1, b:2};
-let obj2 = {b:3, c:4};
+  let obj1 = {a:1, b:2};
+  let obj2 = {b:3, c:4};
 
-Object.assign(obj1, obj2)
-  等同于
-{...obj1, ...obj2}
+  {...obj1, ...obj2}
+    等同于
+  Object.assign(obj1, obj2)
 ```
 
 - 常用方法：
@@ -87,19 +90,26 @@ Object.assign(obj1, obj2)
 > 数组求和：
 ```sh
   var arr = [1,2,3,4,5];
-  法1：
+  
+  method 1: 
   var sum = eval(arr.join('+'));
-  法2：
+  
+  method 2: 
   var sum = arr.reduce((prev,cur) => prev + cur);
 ```
 
-> 金钱格式化：
+> 金钱格式化(千分)：
 ```sh
   let money = 11111;
-  法1: 
+  
+  method 1: 
   money.toLocaleString('en-US');
-  法2: 
-  Intl.NumberFormat().format(money)
+  
+  method 2: 
+  Intl.NumberFormat().format(money);
+  
+  method 3: 
+  String(money).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 ```
 
 > 短路逻辑代替if：
@@ -107,15 +117,48 @@ Object.assign(obj1, obj2)
   isTrue && console.log(1);
 ```
 
+> RGB to Hex：
+```sh
+  function RGBtoHEX(rgb){
+    return ((1<<24) + (rgb.r<<16) + (rgb.g<<8) + rgb.b).toString(16).substr(1);
+  }
+```
 
 > 生成指定长度数组：
 ```sh
   Array.from(new Array(10).keys());
 ```
+- 正则进阶：
 
-*********************************************
- 一起学习前端共同进步！
-`qq群：635833997`
-*********************************************
-![718](https://user-images.githubusercontent.com/15956567/42858386-e5e2fcc2-8a80-11e8-8a06-8807517d9854.png)
+> 捕获括号：
+```sh
+  匹配 'tigerHee' 并且记住匹配项
+  /(tigerHee)/
+```
+
+> 非捕获括号：
+```sh
+  匹配 'tigerHee' 但是不记住匹配项
+  /(?:tigerHee)/
+```
+
+> 先行断言：
+```sh
+  匹配'tiger'仅仅当'tiger'后面跟着'Hee'
+  /tiger(?=Hee)/
+```
+
+> 后行断言：
+```sh
+  匹配'Hee'仅仅当'Hee'前面是'tiger'
+  /(?<=tiger)Hee/
+```
+
+> 正向否定查找：
+```sh
+  匹配'tiger'仅仅当'tiger'后面不跟着'java'
+  /tiger(?!java)/
+```
+
+
 
